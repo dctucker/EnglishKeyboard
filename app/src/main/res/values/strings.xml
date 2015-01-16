@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">English Keyboard</string>
+    <string name="english_ime">English IME</string>
+    <string name="subtype_en_US">English (US)</string>
+</resources>
