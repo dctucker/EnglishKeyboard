@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingLeft="16dip"
+    android:paddingRight="16dip"
+    >
+<!--    android:background="@drawable/keyboard_popup_panel_background" -->
+
+<android.inputmethodservice.KeyboardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/keyboard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#FF88FF00"
+    android:keyPreviewLayout="@layout/null_layout"
+    android:popupLayout="@layout/null_layout"
+/>
+    <!-- android:popupLayout="@layout/keyboard_popup_keyboard" -->
+
+</LinearLayout>

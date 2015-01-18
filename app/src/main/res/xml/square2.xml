@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="0px"
+    android:verticalGap="5px"
+    android:keyWidth="14.28571429%p"
+    android:keyHeight="60dp"
+    >
+    <!--
+
+Q		W		R		T		‘		L		P
+
+A		E		G		Y		U		I		O
+
+S		D		F		G		H		J		K
+
+Z		X		C		V		B		N		M
+
+    -->
+    <Row>
+        <Key android:keyLabel="q" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="w"/>
+        <Key android:keyLabel="r"/>
+        <Key android:keyLabel="t"/>
+        <Key android:keyLabel="'" android:codes="39,44,46,34,63" android:popupCharacters="!\@$:;,.-\?" android:popupKeyboard="@xml/keyboard_popup_template" />
+        <Key android:keyLabel="l"/>
+        <Key android:keyLabel="p" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:keyLabel="a" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="e"/>
+        <Key android:keyLabel="g"/>
+        <Key android:keyLabel="y"/>
+        <Key android:keyLabel="u"/>
+        <Key android:keyLabel="i"/>
+        <Key android:keyLabel="o" android:keyEdgeFlags="right"/>
+    </Row>
+    <Row>
+        <Key android:keyLabel="s" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="d"/>
+        <Key android:keyLabel="f"/>
+        <Key android:keyLabel="h"/>
+        <Key android:keyLabel="j"/>
+        <Key android:keyLabel="k"/>
+        <Key android:keyLabel="l" keyEdgeFlags="right"/>
+        <!-- Key android:codes="35,64" android:keyLabel="\# \@" android:keyEdgeFlags="right"/ -->
+    </Row>
+    <Row>
+        <Key android:keyLabel="z" android:keyEdgeFlags="left"/>
+        <Key android:keyLabel="x"/>
+        <Key android:keyLabel="c"/>
+        <Key android:keyLabel="v"/>
+        <Key android:keyLabel="b"/>
+        <Key android:keyLabel="n"/>
+        <Key android:keyLabel="m" android:keyEdgeFlags="right"/>
+        <!-- Key android:codes="46" android:keyLabel="."/ -->
+        <!-- Key android:codes="63,33,58" android:keyLabel="\? ! :" android:keyEdgeFlags="right"/-->
+    </Row>
+    <Row android:rowEdgeFlags="bottom" android:keyHeight="30dp">
+        <Key android:codes="-1" android:keyLabel="⇧" android:isModifier="true" android:isSticky="true"
+            android:keyWidth="8%p"
+            android:keyEdgeFlags="left" />
+        <Key android:codes="32" android:keyLabel="␣" android:keyWidth="80%p" android:isRepeatable="true"/>
+        <Key android:codes="-4" android:keyLabel="↵" />
+        <Key android:codes="-5" android:keyLabel="←" android:isRepeatable="true" android:keyEdgeFlags="right" />
+    </Row>
+</Keyboard>

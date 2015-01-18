@@ -18,12 +18,12 @@ import com.dctucker.casey.englishkeyboard.EnglishKeyboardView;
  * Created by casey on 2015-01-09.
  */
 public class EnglishIME extends InputMethodService
-    implements KeyboardView.OnKeyboardActionListener {
+    implements EnglishKeyboardView.OnKeyboardActionListener {
 
     //private KeyboardView kv;
 
-    private KeyboardView kv;
-    //private EnglishKeyboardView ekv;
+    //private KeyboardView kv;
+    private EnglishKeyboardView kv;
     private Keyboard keyboard;
 
     private boolean caps=false;
@@ -34,40 +34,50 @@ public class EnglishIME extends InputMethodService
         playClick(primaryCode);
 
         switch(primaryCode) {
-            case Keyboard.KEYCODE_DELETE:
+            case -5: //Keyboard.KEYCODE_DELETE:
                 ic.deleteSurroundingText(1,0);
                 break;
             case Keyboard.KEYCODE_SHIFT:
                 caps = !caps;
                 keyboard.setShifted(caps);
                 kv.invalidateAllKeys();
-                if( caps )
-                    ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SHIFT_LEFT));
-                else
-                    ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SHIFT_LEFT));
-
+                //if( caps )
+                //    ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_SHIFT_LEFT));
+                //else
+                //    ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SHIFT_LEFT));
+                //
                 break;
             case Keyboard.KEYCODE_DONE:
                 ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_ENTER));
                 break;
             default:
-                doKeypress(primaryCode);
-                //this.sendDownUpKeyEvents(code);
-                //ic.commitText(String.valueOf(code),1);
-                /*
-                EditorInfo ei = getCurrentInputEditorInfo();
-                int shift = ic.getCursorCapsMode(Integer.MAX_VALUE);
-                if( shift > 0 ) {
-                    caps = true;
-                    keyboard.setShifted(caps);
-                    kv.invalidateAllKeys();
+                //doKeypress(primaryCode);
+                //KeyEvent ke = new KeyEvent( KeyEvent.ACTION_DOWN, primaryCode);
+                //keyDownUp(primaryCode);
+                String t = "";
+                if( Character.isLetter(primaryCode) ) {
+                    t = "" + (char) primaryCode;
+                    if( keyboard.isShifted() )
+                        t = t.toUpperCase();
+                    ic.commitText(t, 1);
                 }
-                */
-        }
+                else
+                    getCurrentInputConnection().commitText(String.valueOf((char) primaryCode), 1);
 
+
+                //EditorInfo ei = getCurrentInputEditorInfo();
+                //int shift = ic.getCursorCapsMode(Integer.MAX_VALUE);
+                //if( shift > 0 ) {
+                //    caps = true;
+                //    keyboard.setShifted(caps);
+                //    kv.invalidateAllKeys();
+                //}
+        }
     }
 
     private void doKeypress(int primaryCode) {
+        //this.sendDownUpKeyEvents(code);
+
         InputConnection ic = getCurrentInputConnection();
         long eventTime = SystemClock.uptimeMillis();
         boolean shift = caps;
@@ -80,6 +90,13 @@ public class EnglishIME extends InputMethodService
         ic.sendKeyEvent(new KeyEvent( SystemClock.uptimeMillis(), eventTime, KeyEvent.ACTION_UP, code, 0, 0, 0, 0, KeyEvent.FLAG_SOFT_KEYBOARD|KeyEvent.FLAG_KEEP_TOUCH_MODE));
         //if( shift ) ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_SHIFT_LEFT));
 
+    }
+
+    private void keyDownUp(int keyEventCode) {
+        getCurrentInputConnection().sendKeyEvent(
+                new KeyEvent(KeyEvent.ACTION_DOWN, keyEventCode));
+        getCurrentInputConnection().sendKeyEvent(
+                new KeyEvent(KeyEvent.ACTION_UP, keyEventCode));
     }
 
     @Override
@@ -103,7 +120,9 @@ public class EnglishIME extends InputMethodService
     public View onCreateInputView(){
         kv = (EnglishKeyboardView) getLayoutInflater().inflate(R.layout.input, null);
         //ekv = new EnglishKeyboardView(kv);
-        keyboard = new Keyboard(this, R.xml.qwerty);
+        keyboard = new Keyboard(this,
+                R.xml.qwerty
+        );
         kv.setKeyboard(keyboard);
         kv.setOnKeyboardActionListener(this);
         return kv;
